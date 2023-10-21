@@ -1,37 +1,38 @@
-import { themeProvider } from './context/theme'
-import './App.css'
-import { useEffect, useState } from 'react'
+import React from "react";
+import { useEffect, useState } from "react";
+import {ThemeProvider} from "./contexts/theme";
+import ThemeBtn from "./components/ThemeBtn";
+import Card from "./components/Card";
 
 function App() {
- const [theme, settheme] = useState('light')
- const darkTheme =()=>{
-  settheme('dark');
- }
- const lightTheme =()=>{
-  settheme('light');
- }
-  // actual change in theme 
+  const [themeMode, setthemeMode] = useState('light')
+  const lightTheme = ()=>{
+    setthemeMode('light');
+  }
+  const darkTheme = ()=>{
+    setthemeMode('dark');
+  }
   useEffect(() => {
-   document.querySelector('html').classList.remove('light','dark')
-   document.querySelector('html').classList.add(theme);
-  }, [theme])
+    document.querySelector('html').classList.remove('dark','light');
+    document.querySelector('html').classList.add(themeMode);
+  }, [themeMode])
   
-
   return (
-    <themeProvider value={{theme,darkTheme,lightTheme}} >
-
-    <div className=''>
-      <div className=''>
-          <div className=''>
-            {/* theme Btn */}
+    <ThemeProvider value={{themeMode,lightTheme,darkTheme}}>
+  <div className=" flex flex-wrap min-h-screen items-center">
+      <div className="w-full">
+        
+          <div className="w-full max-w-sm mx-auto flex justify-end mb-4">
+            <ThemeBtn/>
           </div>
-          <div className=''>
-            {/*Card*/}
+          <div className="w-full max-w-sm mx-auto ">
+            <Card/>
           </div>
+       
       </div>
-
     </div>
-    </themeProvider>
+    </ThemeProvider>
+  
   )
 }
 
